@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Haven - Premium Online Store</title>
+    <meta name="description" content="Discover premium quality products at Luxe Haven. Shop fashion, home decor, and lifestyle products with free shipping.">
+    <meta name="keywords" content="online store, premium products, fashion, home decor, lifestyle">
+    <meta property="og:title" content="Luxe Haven - Premium Online Store">
+    <meta property="og:description" content="Discover premium quality products at Luxe Haven.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for elements that need more specific styling */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .accordion.active .accordion-content {
+            max-height: 300px;
+        }
+        
+        .accordion.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        
+        .testimonial-card {
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .testimonial-card.active {
+            opacity: 1;
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 300px;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-2xl font-bold text-teal-600">Luxe Haven</a>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-teal-600 transition">Home</a>
+                <a href="#products" class="text-gray-700 hover:text-teal-600 transition">Products</a>
+                <a href="#about" class="text-gray-700 hover:text-teal-600 transition">About</a>
+                <a href="#testimonials" class="text-gray-700 hover:text-teal-600 transition">Reviews</a>
+                <a href="#contact" class="text-gray-700 hover:text-teal-600 transition">Contact</a>
+            </nav>
+            
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#" class="text-gray-700 hover:text-teal-600 transition">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <button class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition">Shop Now</button>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-teal-600 transition">Home</a>
+                <a href="#products" class="block py-2 text-gray-700 hover:text-teal-600 transition">Products</a>
+                <a href="#about" class="block py-2 text-gray-700 hover:text-teal-600 transition">About</a>
+                <a href="#testimonials" class="block py-2 text-gray-700 hover:text-teal-600 transition">Reviews</a>
+                <a href="#contact" class="block py-2 text-gray-700 hover:text-teal-600 transition">Contact</a>
+                <div class="py-2">
+                    <button class="w-full bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition">Shop Now</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section min-h-screen flex items-center justify-center text-center text-white">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Elevate Your Lifestyle</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Discover our curated collection of premium products designed to enhance your daily life.</p>
+            <button class="bg-teal-600 text-white px-8 py-3 rounded-md hover:bg-teal-700 transition text-lg font-medium">Explore Collection</button>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Our Featured Products</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Handpicked selection of our best selling items</p>
+            </div>
+            
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex rounded-md shadow-sm">
+                    <button class="px-4 py-2 text-sm font-medium rounded-l-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-teal-500 focus:text-teal-600">
+                        All
+                    </button>
+                    <button class="px-4 py-2 text-sm font-medium border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-teal-500 focus:text-teal-600">
+                        Fashion
+                    </button>
+                    <button class="px-4 py-2 text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-teal-500 focus:text-teal-600">
+                        Home
+                    </button>
+                    <button class="px-4 py-2 text-sm font-medium rounded-r-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-teal-500 focus:text-teal-600">
+                        Electronics
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80" alt="Premium Watch" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Luxe Chronograph Watch</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(42 reviews)</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3">Premium stainless steel watch with leather strap</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-gray-800">$249.99</span>
+                            <button class="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700 transition text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Wireless Headphones" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Noise-Canceling Headphones</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(36 reviews)</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3">Premium wireless headphones with 30hr battery</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-gray-800">$179.99</span>
+                            <button class="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700 transition text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a10b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Leather Bag" class="w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">SALE</div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Genuine Leather Tote</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(58 reviews)</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3">Handcrafted full-grain leather tote bag</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-gray-800">$129.99</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">$159.99</span>
+                            </div>
+                            <button class="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700 transition text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Ceramic Mug" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">Artisan Ceramic Mug Set</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 text-sm ml-2">(27 reviews)</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-3">Set of 4 handcrafted ceramic mugs</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-gray-800">$49.99</span>
+                            <button class="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700 transition text-sm">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="border-2 border-teal-600 text-teal-600 px-8 py-3 rounded-md hover:bg-teal-600 hover:text-white transition text-lg font-medium">View All Products</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Our Team" class="rounded-lg shadow-lg w-full">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Story</h2>
+                    <p class="text-gray-600 mb-6">Founded in 2015, Luxe Haven began as a small boutique with a passion for quality craftsmanship and timeless design. What started as a single storefront has grown into a beloved online destination for those who appreciate the finer things in life.</p>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Our Mission</h3>
+                        <p class="text-gray-600">To curate a collection of premium products that combine exceptional quality, thoughtful design, and sustainable practices, making luxury accessible to all.</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Our Values</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-teal-600 mt-1 mr-2"></i>
+                                <span class="text-gray-600">Quality craftsmanship above all else</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-teal-600 mt-1 mr-2"></i>
+                                <span class="text-gray-600">Ethical and sustainable sourcing</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-teal-600 mt-1 mr-2"></i>
+                                <span class="text-gray-600">Exceptional customer service</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-teal-600 mt-1 mr-2"></i>
+                                <span class="text-gray-600">Timeless design over trends</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <button class="bg-teal-600 text-white px-6 py-2 rounded-md hover:bg-teal-700 transition">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">What Our Customers Say</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Don't just take our word for it - hear from our satisfied customers</p>
+            </div>
+            
+            <div class="relative max-w-5xl mx-auto">
+                <div class="testimonial-carousel overflow-hidden">
+                    <div class="flex transition-transform duration-300 ease-in-out" id="testimonial-slides">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-card min-w-full px-4 active">
+                            <div class="bg-gray-50 p-8 rounded-lg shadow-sm">
+                                <div class="flex items-center mb-6">
+                                    <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson" class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Sarah Johnson</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 italic">"I've been shopping with Luxe Haven for years and they never disappoint. The quality of their products is unmatched and their customer service is exceptional. My leather tote has held up beautifully for over two years of daily use!"</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-card min-w-full px-4">
+                            <div class="bg-gray-50 p-8 rounded-lg shadow-sm">
+                                <div class="flex items-center mb-6">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Michael Chen</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 italic">"The noise-canceling headphones are worth every penny. As someone who travels frequently for work, these have been a game-changer. The battery life is impressive and the sound quality is crystal clear. Luxe Haven's packaging was also very elegant."</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-card min-w-full px-4">
+                            <div class="bg-gray-50 p-8 rounded-lg shadow-sm">
+                                <div class="flex items-center mb-6">
+                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emily Rodriguez" class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-800">Emily Rodriguez</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 italic">"I purchased the ceramic mug set as a housewarming gift and my friend absolutely loved it! The craftsmanship is beautiful and each mug has its own unique character. Shipping was fast and the mugs arrived perfectly packaged with no damage."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center mt-8 space-x-2">
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-teal-600" data-index="0"></button>
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300" data-index="1"></button>
+                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300" data-index="2"></button>
+                </div>
+                
+                <button id="testimonial-prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md text-teal-600 hover:bg-teal-600 hover:text-white transition">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="testimonial-next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md text-teal-600 hover:bg-teal-600 hover:text-white transition">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Frequently Asked Questions</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Find answers to common questions about our products and services</p>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
+                        <span class="font-medium text-gray-800">What is your return policy?</span>
+                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-4 pt-0 text-gray-600">
+                            <p>We offer a 30-day return policy for most items. Items must be unused, in their original packaging, and with all tags attached. Some exclusions apply for final sale items. To initiate a return, please contact our customer service team with your order number.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
+                        <span class="font-medium text-gray-800">How long does shipping take?</span>
+                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-4 pt-0 text-gray-600">
+                            <p>We process orders within 1-2 business days. Standard shipping typically takes 3-5 business days within the continental US. Expedited shipping options are available at checkout for faster delivery. International shipping times vary by destination.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
+                        <span class="font-medium text-gray-800">Do you offer international shipping?</span>
+                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-4 pt-0 text-gray-600">
+                            <p>Yes, we ship to most countries worldwide. International shipping rates and delivery times vary depending on the destination. Please note that customers are responsible for any customs duties, taxes, or fees that may apply in their country.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
+                        <span class="font-medium text-gray-800">What payment methods do you accept?</span>
+                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-4 pt-0 text-gray-600">
+                            <p>We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple Pay, and Google Pay. All transactions are securely processed through our encrypted payment gateway.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
+                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
+                        <span class="font-medium text-gray-800">How can I track my order?</span>
+                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-4 pt-0 text-gray-600">
+                            <p>Once your order has shipped, you'll receive a confirmation email with tracking information. You can also track your order by logging into your account on our website. If you're having trouble tracking your package, our customer service team is happy to assist.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <p class="text-gray-600">Still have questions? <a href="#contact" class="text-teal-600 hover:underline">Contact us</a> and we'll be happy to help!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Get In Touch</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We'd love to hear from you! Send us a message and we'll respond as soon as possible.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
+                <div class="lg:w-1/2">
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500" required>
+                            <p class="mt-1 text-sm text-red-600 hidden" id="name-error">Please enter your name</p>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500" required>
+                            <p class="mt-1 text-sm text-red-600 hidden" id="email-error">Please enter a valid email address</p>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500" required>
+                            <p class="mt-1 text-sm text-red-600 hidden" id="subject-error">Please enter a subject</p>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500" required></textarea>
+                            <p class="mt-1 text-sm text-red-600 hidden" id="message-error">Please enter your message</p>
+                        </div>
+                        
+                        <button type="submit" class="bg-teal-600 text-white px-6 py-3 rounded-md hover:bg-teal-700 transition w-full">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-lg h-full">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-teal-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-teal-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 mb-1">Our Location</h4>
+                                    <p class="text-gray-600">123 Luxury Avenue, Suite 100<br>Beverly Hills, CA 90210</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-teal-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-teal-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 mb-1">Phone Number</h4>
+                                    <p class="text-gray-600">+1 (310) 555-1234<br>Mon-Fri: 9am-6pm PST</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-teal-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-teal-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800 mb-1">Email Address</h4>
+                                    <p class="text-gray-600">hello@luxehaven.com<br>We typically respond within 24 hours</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-medium text-gray-800 mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-gray-200 p-3 rounded-full text-gray-700 hover:bg-teal-600 hover:text-white transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="bg-gray-200 p-3 rounded-full text-gray-700 hover:bg-teal-600 hover:text-white transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="bg-gray-200 p-3 rounded-full text-gray-700 hover:bg-teal-600 hover:text-white transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="bg-gray-200 p-3 rounded-full text-gray-700 hover:bg-teal-600 hover:text-white transition">
+                                    <i class="fab fa-pinterest-p"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-12 bg-teal-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold mb-4">Join Our Newsletter</h2>
+            <p class="max-w-2xl mx-auto mb-6">Subscribe to receive updates on new arrivals, special offers, and exclusive deals.</p>
+            
+            <form class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-md focus:outline-none text-gray-800">
+                <button type="submit" class="bg-teal-800 px-6 py-3 rounded-r-md hover:bg-teal-900 transition">Subscribe</button>
+            </form>
+            
+            <p class="mt-4 text-sm opacity-80">We respect your privacy. Unsubscribe at any time.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Luxe Haven</h3>
+                    <p class="text-gray-400 mb-4">Your destination for premium quality products that elevate everyday life.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Shop</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Best Sellers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Sale Items</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Customer Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Size Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Our Story</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Sustainability</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 Luxe Haven. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition text-sm">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            const icon = mobileMenuButton.querySelector('i');
+            if (mobileMenu.classList.contains('open')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                mobileMenuButton.querySelector('i').classList.remove('fa-times');
+                mobileMenuButton.querySelector('i').classList.add('fa-bars');
+            });
+        });
+        
+        // FAQ Accordion
+        document.querySelectorAll('.accordion-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const accordion = button.closest('.accordion');
+                accordion.classList.toggle('active');
+            });
+        });
+        
+        // Testimonial Carousel
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-card');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        const slidesContainer = document.getElementById('testimonial-slides');
+        
+        function showTestimonial(index) {
+            testimonials.forEach((testimonial, i) => {
+                if (i === index) {
+                    testimonial.classList.add('active');
+                } else {
+                    testimonial.classList.remove('active');
+                }
+            });
+            
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('bg-teal-600');
+                    dot.classList.remove('bg-gray-300');
+                } else {
+                    dot.classList.remove('bg-teal-600');
+                    dot.classList.add('bg-gray-300');
+                }
+            });
+            
+            slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+            currentTestimonial = index;
+        }
+        
+        document.getElementById('testimonial-next').addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+        
+        document.getElementById('testimonial-prev').addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.getAttribute('data-index'));
+                showTestimonial(index);
+            });
+        });
+        
+        // Auto-rotate testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+        
+        // Form Validation
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Validate name
+            const name = document.getElementById('name');
+            const nameError = document.getElementById('name-error');
+            if (name.value.trim() === '') {
+                nameError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                nameError.classList.add('hidden');
+            }
+            
+            // Validate email
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                emailError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                emailError.classList.add('hidden');
+            }
+            
+            // Validate subject
+            const subject = document.getElementById('subject');
+            const subjectError = document.getElementById('subject-error');
+            if (subject.value.trim() === '') {
+                subjectError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                subjectError.classList.add('hidden');
+            }
+            
+            // Validate message
+            const message = document.getElementById('message');
+            const messageError = document.getElementById('message-error');
+            if (message.value.trim() === '') {
+                messageError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                messageError.classList.add('hidden');
+            }
+            
+            if (isValid) {
+                // In a real application, you would submit the form here
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
