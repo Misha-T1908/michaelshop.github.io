@@ -1,806 +1,945 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxe Haven - Premium Online Store</title>
-    <meta name="description" content="Discover premium quality products at Luxe Haven. Shop fashion, home decor, and lifestyle products with free shipping.">
-    <meta name="keywords" content="online store, premium products, fashion, home decor, lifestyle">
-    <meta property="og:title" content="Luxe Haven - Premium Online Store">
-    <meta property="og:description" content="Discover premium quality products at Luxe Haven.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Галерея Пейзажів - Світи Природи</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Custom CSS for elements that need more specific styling */
-        .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        
-        .accordion.active .accordion-content {
-            max-height: 300px;
-        }
-        
-        .accordion.active .accordion-icon {
-            transform: rotate(180deg);
-        }
-        
-        .testimonial-card {
-            opacity: 0;
-            transition: all 0.5s ease;
-        }
-        
-        .testimonial-card.active {
-            opacity: 1;
-        }
-        
-        .mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        
-        .mobile-menu.open {
-            max-height: 300px;
-        }
-        
-        /* Smooth scrolling */
+
         html {
             scroll-behavior: smooth;
         }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #f4f4f4;
+            background-color: #141414;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #ccc;
+        }
+
+        a {
+            color: #76c7c0;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #a4e0dd;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #76c7c0;
+            color: #141414;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #a4e0dd;
+        }
+
+        .cb-slideshow {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .cb-slideshow,
+        .cb-slideshow:after {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            z-index: 0;
+        }
+
+        .cb-slideshow li span {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            color: transparent;
+            background-size: cover;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            opacity: 0;
+            z-index: 0;
+            animation: imageAnimation 36s linear infinite 0s;
+        }
+        .cb-slideshow li div {
+            z-index: 1;
+            position: absolute;
+            bottom: 30px;
+            left: 0px;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            color: #fff;
+            animation: titleAnimation 36s linear infinite 0s;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+        .cb-slideshow li div h3 {
+            margin: 0;
+            font-family: 'Montserrat', 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+            font-size: 180px;
+            padding: 0;
+            line-height: 1.1;
+            font-weight: bold;
+        }
+
+        .cb-slideshow li:nth-child(1) span { background-image: url(https://images.unsplash.com/photo-1470770841072-f978cf4d019e?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzgwMDB8&ixlib=rb-4.0.3&q=85&w=1600); }
+        .cb-slideshow li:nth-child(2) span { background-image: url(https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzgwMDF8&ixlib=rb-4.0.3&q=85&w=1600); animation-delay: 6s; }
+        .cb-slideshow li:nth-child(3) span { background-image: url(https://images.unsplash.com/photo-1472214103451-9374bd1c798e?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzgwMDJ8&ixlib=rb-4.0.3&q=85&w=1600); animation-delay: 12s; }
+        .cb-slideshow li:nth-child(4) span { background-image: url(https://images.unsplash.com/photo-1501854140801-50d01698950b?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzgwMDN8&ixlib=rb-4.0.3&q=85&w=1600); animation-delay: 18s; }
+        .cb-slideshow li:nth-child(5) span { background-image: url(https://images.unsplash.com/photo-1419833173245-f59e1b93f94b?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzgwMDR8&ixlib=rb-4.0.3&q=85&w=1600); animation-delay: 24s; }
+        .cb-slideshow li:nth-child(6) span { background-image: url(https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzgwMDV8&ixlib=rb-4.0.3&q=85&w=1600); animation-delay: 30s; }
+
+        .cb-slideshow li:nth-child(2) div { animation-delay: 6s; }
+        .cb-slideshow li:nth-child(3) div { animation-delay: 12s; }
+        .cb-slideshow li:nth-child(4) div { animation-delay: 18s; }
+        .cb-slideshow li:nth-child(5) div { animation-delay: 24s; }
+        .cb-slideshow li:nth-child(6) div { animation-delay: 30s; }
+
+        @keyframes imageAnimation {
+            0% { opacity: 0; animation-timing-function: ease-in; }
+            8% { opacity: 1; transform: scale(1.05); animation-timing-function: ease-out; }
+            17% { opacity: 1; transform: scale(1.1) rotate(1deg); }
+            25% { opacity: 0; transform: scale(1.1) rotate(1deg); }
+            100% { opacity: 0 }
+        }
+        @keyframes titleAnimation {
+            0% { opacity: 0; transform: translateY(100px); }
+            8% { opacity: 1; transform: translateY(0px); }
+            17% { opacity: 1; transform: translateY(0px); }
+            19% { opacity: 0; transform: translateY(-100px); }
+            25% { opacity: 0 }
+            100% { opacity: 0 }
+        }
+        @media screen and (max-width: 1140px) { .cb-slideshow li div h3 { font-size: 120px; line-height: 1.1; } }
+        @media screen and (max-width: 768px) { .cb-slideshow li div h3 { font-size: 90px; line-height: 1; bottom: 20px; } }
+        @media screen and (max-width: 600px) { .cb-slideshow li div h3 { font-size: 60px; line-height: 1; bottom: 15px; } }
+
+        header#home-section {
+            background: transparent;
+            height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        header#home-section nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(20, 20, 20, 0.6);
+            z-index: 1000;
+        }
+
+        header#home-section nav .logo {
+            float: left;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-left: 40px;
+            color: #fff;
+        }
+
+        header#home-section nav ul {
+            float: right;
+            list-style: none;
+            margin-right: 40px;
+        }
+
+        header#home-section nav ul li {
+            display: inline-block;
+            margin-left: 25px;
+        }
+
+        header#home-section nav ul li a {
+            color: #fff;
+            font-size: 1rem;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        header#home-section nav ul li a:hover,
+        header#home-section nav ul li a.active-link {
+            color: #76c7c0;
+        }
+
+        .hero-content {
+            padding: 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-content h1, .hero-content p {
+             text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            margin-bottom: 30px;
+            color: #f0f0f0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        main, footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-section {
+            padding: 70px 0;
+            background-color: #1a1a1a;
+        }
+        .content-section:nth-child(even) {
+             background-color: #1f1f1f;
+        }
+
+        .content-section .container {
+            max-width: 800px;
+        }
+
+        .content-section h2 {
+            margin-bottom: 30px;
+        }
+        
+        .gallery-intro {
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 50px; 
+            color: #ccc;
+            text-align: center;
+        }
+        #scenic-destinations-section .gallery-intro {
+            color: #ddd;
+        }
+
+        #scenic-destinations-section {
+            padding-top: 50px;
+            padding-bottom: 70px;
+        }
+        #scenic-destinations-section h2 {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .scenic-slider-outer-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            margin: 0 auto;
+            padding: 50px; 
+            background-color: #2a2a2a;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #scenic-slide-element {
+            width: 100%;         
+            margin-top: 50px;
+            position: relative;
+            height: 100%;
+        }
+
+        .scenic-item {
+            width: 200px;
+            height: 300px;
+            background-position: center center;
+            display: inline-block;
+            transition: 0.5s;
+            background-size: cover;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            transform: translate(0, -50%);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .scenic-item:nth-child(1),
+        .scenic-item:nth-child(2) { 
+            left: 0;
+            top: 0;
+            transform: translate(0, 0);
+            border-radius: 0;
+            width: 100%; 
+            height: 100%;
+            box-shadow: none;
+        }
+
+        .scenic-item:nth-child(3) { left: 58%; } 
+        .scenic-item:nth-child(4) { left: calc(58% + 220px); } 
+        .scenic-item:nth-child(5) { left: calc(58% + 440px); } 
+        .scenic-item:nth-child(n+6) {
+            left: calc(58% + 660px); 
+            opacity: 0;
+        }
+
+        .scenic-item .content {
+            position: absolute;
+            top: 50%;
+            left: 40px; 
+            width: 380px; 
+            max-width: calc(100% - 80px); 
+            background-color: rgba(0, 0, 0, .7); 
+            padding: 25px 30px; 
+            text-align: left;
+            color: #f0f0f0;
+            transform: translate(0, -50%);
+            display: none;
+            border-radius: 10px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .scenic-item:nth-child(2) .content {
+            display: block;
+            z-index: 10;
+        }
+
+        .scenic-item .name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            opacity: 0;
+            animation: scenicShowContent 1s ease-in-out 1 forwards;
+            color: #fff;
+            margin-bottom: 15px; 
+        }
+
+        .scenic-item .des {
+            margin: 15px 0; 
+            opacity: 0;
+            animation: scenicShowContent 1s ease-in-out 0.3s 1 forwards;
+            font-size: 1rem;
+            line-height: 1.6; 
+        }
+
+        .scenic-item .scenic-btn {
+          display: inline-block;
+          background-color: #76c7c0;
+          color: #141414;
+          font-size: 0.9rem;
+          font-weight: bold;
+          padding: 12px 25px; 
+          text-decoration: none;
+          border: none;
+          border-radius: 5px;
+          margin-top: 20px; 
+          opacity: 0;
+          animation: scenicShowContent 1s ease-in-out 0.6s 1 forwards;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .scenic-item .scenic-btn:hover {
+            background-color: #a4e0dd;
+            transform: translateY(-2px); 
+        }
+
+        @keyframes scenicShowContent {
+            from { opacity: 0; transform: translateY(50px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        
+        .scenic-buttons {
+          position: absolute;
+          bottom: 25px; 
+          z-index: 20;
+          text-align: center;
+          width: calc(100% - 100px); 
+          left: 50px;
+        }
+
+        .scenic-buttons button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid #999; 
+            background-color: rgba(20,20,20,0.75); 
+            color: #e0e0e0; 
+            font-size: 1.2rem;
+            transition: 0.3s;
+            margin: 0 8px;
+            cursor: pointer;
+        }
+
+        .scenic-buttons button:hover {
+            background-color: #76c7c0;
+            color: #141414;
+            border-color: #76c7c0;
+        }
+
+        .gallery-section {
+            padding: 70px 0;
+            text-align: center;
+            background-color: #141414;
+        }
+        .gallery-section h2 {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        :root{
+            --index: calc(1vw + 1vh);
+            --transition: cubic-bezier(.1, .7, 0, 1);
+        }
+
+        .wrapper{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .items{
+            display: flex;
+            gap: 0.4rem;
+            perspective: calc(var(--index) * 35);
+        }
+
+        .item{
+            width: calc(var(--index) * 3);
+            height: calc(var(--index) * 12);
+            background-color: #222;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            filter: grayscale(1) brightness(.5);
+            transition: transform 1.25s var(--transition), filter 3s var(--transition), width 1.25s var(--transition);
+            will-change: transform, filter, rotateY, width;
+            border-radius: 4px;
+        }
+
+        .item::before, .item::after{
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 20px;
+            right: calc(var(--index) * -1);
+        }
+
+        .item::after{
+            left: calc(var(--index) * -1);
+        }
+
+        .items .item:hover{
+            filter: none;
+            transform: translateZ(calc(var(--index) * 10));
+        }
+
+        .items .item:hover + *{ filter: none; transform: translateZ(calc(var(--index) * 8.5)) rotateY(35deg); z-index: -1; }
+        .items .item:hover + * + *{ filter: none; transform: translateZ(calc(var(--index) * 5.6)) rotateY(40deg); z-index: -2; }
+        .items .item:hover + * + * + *{ filter: none; transform: translateZ(calc(var(--index) * 2.5)) rotateY(30deg); z-index: -3; }
+        .items .item:hover + * + * + * + *{ filter: none; transform: translateZ(calc(var(--index) * .6)) rotateY(15deg); z-index: -4; }
+
+        .items .item:has( + :hover){ filter: none; transform: translateZ(calc(var(--index) * 8.5)) rotateY(-35deg); }
+        .items .item:has( + * + :hover){ filter: none; transform: translateZ(calc(var(--index) * 5.6)) rotateY(-40deg); }
+        .items .item:has( + * + * + :hover){ filter: none; transform: translateZ(calc(var(--index) * 2.5)) rotateY(-30deg); }
+        .items .item:has( + * + * + * + :hover){ filter: none; transform: translateZ(calc(var(--index) * .6)) rotateY(-15deg); }
+
+        .items .item:active, .items .item:focus {
+            width: 28vw;
+            filter: none;
+            z-index: 100;
+            transform: translateZ(calc(var(--index) * 10));
+            margin: 0 .45vw;
+        }
+
+        .footer-carousel-wrapper {
+          --footer-item-width: 90px;
+          --footer-num-items: 12;
+          --footer-ani-offset: calc(var(--footer-item-width) * var(--footer-num-items) * -1);
+          --footer-ani-speed: 28s;
+          --footer-bg-clr: #101010;
+
+          width: 90%;
+          max-width: 1000px;
+          overflow: hidden;
+          position: relative;
+          margin: 0 auto 25px auto;
+          padding: 15px 0;
+          border-top: 1px solid #252525;
+          border-bottom: 1px solid #252525;
+        }
+
+        .footer-carousel-wrapper::before,
+        .footer-carousel-wrapper::after {
+          content: '';
+          position: absolute;
+          width: 100px;
+          height: 100%;
+          z-index: 1;
+          top: 0;
+        }
+
+        .footer-carousel-wrapper::before {
+          left: 0;
+          background-image: linear-gradient(to right, var(--footer-bg-clr) 30%, transparent 100%);
+        }
+
+        .footer-carousel-wrapper::after {
+          right: 0;
+          background-image: linear-gradient(to left, var(--footer-bg-clr) 30%, transparent 100%);
+        }
+
+        .footer-carousel {
+          display: flex;
+          align-items: center;
+          animation: footerSlide var(--footer-ani-speed) linear infinite;
+        }
+
+        .footer-item {
+          flex: 0 0 var(--footer-item-width);
+          text-align: center;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .footer-item > img {
+          max-width: calc(var(--footer-item-width) - 20px);
+          height: 40px;
+          object-fit: contain;
+          border: 1px solid #3a3a3a;
+          border-radius: 3px;
+          background-color: #181818;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        @keyframes footerSlide {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(var(--footer-ani-offset)); }
+        }
+
+        footer {
+            background: #101010;
+            color: #aaa;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 30px;
+        }
+
+        footer p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        footer a { color: #76c7c0; }
+        footer a:hover { color: #a4e0dd; }
+
+        @media (max-width: 1024px) {
+            .scenic-slider-outer-container {
+                padding: 30px;
+                height: 550px;
+            }
+             #scenic-slide-element {
+                margin-top: 30px;
+            }
+            .scenic-item:nth-child(3) { left: 60%; } 
+            .scenic-item:nth-child(4) { left: calc(60% + 200px); } 
+            .scenic-item:nth-child(5) { left: calc(60% + 400px); }
+            .scenic-item:nth-child(n+6) { left: calc(60% + 600px); }
+
+            .scenic-item .content {
+                left: 30px; 
+                width: 350px; 
+                padding: 20px 25px; 
+            }
+             .scenic-item .name { font-size: 2.2rem; }
+        }
+
+        @media (max-width: 768px) {
+            header#home-section nav { padding: 15px 0; }
+            header#home-section nav .logo { float: none; text-align: center; margin: 0 0 15px 0; font-size: 1.6rem; }
+            header#home-section nav ul { float: none; text-align: center; margin-right: 0; }
+            header#home-section nav ul li { display: block; margin: 10px 0; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-content p { font-size: 1.2rem; }
+            h2 { font-size: 2rem; }
+
+            .scenic-slider-outer-container {
+                width: calc(100% - 40px);
+                height: auto;
+                min-height: 500px;
+                padding: 20px; 
+            }
+            #scenic-slide-element {
+                 margin-top: 20px;
+            }
+            .scenic-item {
+                width: 150px;
+                height: 220px;
+            }
+            .scenic-item:nth-child(3){
+                left: 62%; 
+            }
+            .scenic-item:nth-child(4){
+                  left:calc(62% + 170px); 
+            }
+            .scenic-item:nth-child(5), .scenic-item:nth-child(n+6){
+                  display: none; 
+            }
+            .scenic-item .content {
+                top: 50%; 
+                transform: translateY(-50%); 
+                left: 20px; 
+                width: calc(100% - 40px); 
+                padding: 20px;
+            }
+            .scenic-item .name{ font-size: 1.8rem; margin-bottom: 10px;}
+            .scenic-item .des{ font-size: 0.9rem; margin: 10px 0; line-height: 1.5;}
+            .scenic-item .scenic-btn { padding: 10px 20px; font-size: 0.85rem; margin-top: 15px;}
+
+            .scenic-buttons {
+                bottom: 15px;
+                width: calc(100% - 40px); 
+                left: 20px;
+            }
+            .scenic-buttons button { width: 40px; height: 40px; }
+
+            .items .item:active, .items .item:focus { width: 75vw; height: calc(var(--index) * 18); }
+            .items{ gap: 0.2rem; }
+            .item{ width: calc(var(--index) * 4); }
+
+            .footer-carousel-wrapper { --footer-item-width: 80px; width: 95%; }
+            .footer-item > img { height: 35px; max-width: calc(var(--footer-item-width) - 16px); }
+            .footer-carousel-wrapper::before, .footer-carousel-wrapper::after { width: 60px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-content p { font-size: 1rem; }
+            h2 { font-size: 1.8rem; }
+            p { font-size: 0.95rem; }
+            .btn { padding: 10px 18px; font-size: 0.9rem; }
+
+            #scenic-destinations-section .gallery-intro {
+                font-size: 0.9rem;
+            }
+            .scenic-slider-outer-container {
+                min-height: 450px;
+                padding: 15px;
+                 margin-top: 0; 
+            }
+             #scenic-slide-element {
+                 margin-top: 15px;
+            }
+             .scenic-item {
+                width: 120px;
+                height: 180px;
+            }
+            .scenic-item:nth-child(3){
+                left: 68%; 
+            }
+            .scenic-item:nth-child(4), .scenic-item:nth-child(5), .scenic-item:nth-child(n+6){
+              display: none;
+            }
+            .scenic-item .content {
+                left: 15px;
+                width: calc(100% - 30px);
+                padding: 15px;
+            }
+             .scenic-item .name{ font-size: 1.6rem; }
+             .scenic-item .des{ font-size: 0.85rem; }
+             .scenic-item .scenic-btn { padding: 8px 16px; font-size: 0.8rem;}
+
+            .items .item:active, .items .item:focus { width: 85vw; }
+            .item{ height: calc(var(--index) * 15); }
+
+            .footer-carousel-wrapper { --footer-item-width: 70px; padding: 10px 0; margin-bottom: 20px; }
+            .footer-item > img { height: 30px; max-width: calc(var(--footer-item-width) - 10px); }
+            .footer-carousel-wrapper::before { width: 40px; background-image: linear-gradient(to right, var(--footer-bg-clr) 10%, transparent 100%);}
+            .footer-carousel-wrapper::after { width: 40px; background-image: linear-gradient(to left, var(--footer-bg-clr) 10%, transparent 100%);}
+        }
+
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50">
-    <!-- Header/Navigation -->
-    <header class="sticky top-0 z-50 bg-white shadow-md">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <a href="#" class="text-2xl font-bold text-teal-600">Luxe Haven</a>
-            </div>
-            
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex space-x-8">
-                <a href="#home" class="text-gray-700 hover:text-teal-600 transition">Home</a>
-                <a href="#products" class="text-gray-700 hover:text-teal-600 transition">Products</a>
-                <a href="#about" class="text-gray-700 hover:text-teal-600 transition">About</a>
-                <a href="#testimonials" class="text-gray-700 hover:text-teal-600 transition">Reviews</a>
-                <a href="#contact" class="text-gray-700 hover:text-teal-600 transition">Contact</a>
-            </nav>
-            
-            <div class="hidden md:flex items-center space-x-4">
-                <a href="#" class="text-gray-700 hover:text-teal-600 transition">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <button class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition">Shop Now</button>
-            </div>
-            
-            <!-- Mobile menu button -->
-            <button id="mobile-menu-button" class="md:hidden text-gray-700">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
-        
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
-            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
-                <a href="#home" class="block py-2 text-gray-700 hover:text-teal-600 transition">Home</a>
-                <a href="#products" class="block py-2 text-gray-700 hover:text-teal-600 transition">Products</a>
-                <a href="#about" class="block py-2 text-gray-700 hover:text-teal-600 transition">About</a>
-                <a href="#testimonials" class="block py-2 text-gray-700 hover:text-teal-600 transition">Reviews</a>
-                <a href="#contact" class="block py-2 text-gray-700 hover:text-teal-600 transition">Contact</a>
-                <div class="py-2">
-                    <button class="w-full bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition">Shop Now</button>
-                </div>
-            </div>
+<body>
+
+    <ul class="cb-slideshow">
+        <li><span>Background Image 1 - Forest</span><div><h3>Лісова Прохолода</h3></div></li>
+        <li><span>Background Image 2 - Mountains</span><div><h3>Велич Гір</h3></div></li>
+        <li><span>Background Image 3 - Ocean</span><div><h3>Безмежний Океан</h3></div></li>
+        <li><span>Background Image 4 - Desert</span><div><h3>Золото Пустелі</h3></div></li>
+        <li><span>Background Image 5 - Night Sky</span><div><h3>Зоряне Небо</h3></div></li>
+        <li><span>Background Image 6 - Lake</span><div><h3>Дзеркало Озера</h3></div></li>
+    </ul>
+
+    <header id="home-section">
+        <nav>
+            <div class="logo">Світи Природи</div>
+            <ul>
+                <li><a href="#home-section" class="nav-link">Головна</a></li>
+                <li><a href="#about" class="nav-link">Про галерею</a></li>
+                <li><a href="#scenic-destinations-section" class="nav-link">Визначні місця</a></li>
+                <li><a href="#gallery" class="nav-link">3D Галерея</a></li>
+                <li><a href="#contact" class="nav-link">Контакти</a></li>
+            </ul>
+        </nav>
+        <div class="hero-content">
+            <h1>Відкрийте для себе красу природи</h1>
+            <p>Колекція захоплюючих пейзажів з усього світу, що надихають на нові відкриття.</p>
+            <a href="#gallery" class="btn">Переглянути 3D галерею</a>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section min-h-screen flex items-center justify-center text-center text-white">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">Elevate Your Lifestyle</h1>
-            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Discover our curated collection of premium products designed to enhance your daily life.</p>
-            <button class="bg-teal-600 text-white px-8 py-3 rounded-md hover:bg-teal-700 transition text-lg font-medium">Explore Collection</button>
-        </div>
-    </section>
+    <main>
+        <section id="about" class="content-section">
+            <div class="container">
+                <h2>Про нашу галерею</h2>
+                <p>Вітаємо у "Світах Природи" – онлайн-просторі, де ми з любов'ю зібрали для вас найдивовижніші та найзахоплюючіші куточки нашої планети. Наша місія – не просто показати красу, а й нагадати про крихкість та велич навколишнього світу.</p>
+                <p>Кожне зображення в нашій колекції – це не просто фотографія, а ціла історія, емоція, унікальний момент, зафіксований об'єктивом. Ми прагнемо надихнути вас на власні подорожі, дослідження та, найголовніше, на дбайливе ставлення до природи, яка дарує нам стільки чудес.</p>
+            </div>
+        </section>
 
-    <!-- Featured Products Section -->
-    <section id="products" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Our Featured Products</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Handpicked selection of our best selling items</p>
-            </div>
-            
-            <div class="flex justify-center mb-8">
-                <div class="inline-flex rounded-md shadow-sm">
-                    <button class="px-4 py-2 text-sm font-medium rounded-l-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-teal-500 focus:text-teal-600">
-                        All
-                    </button>
-                    <button class="px-4 py-2 text-sm font-medium border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-teal-500 focus:text-teal-600">
-                        Fashion
-                    </button>
-                    <button class="px-4 py-2 text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-teal-500 focus:text-teal-600">
-                        Home
-                    </button>
-                    <button class="px-4 py-2 text-sm font-medium rounded-r-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:z-10 focus:ring-2 focus:ring-teal-500 focus:text-teal-600">
-                        Electronics
-                    </button>
+        <section id="scenic-destinations-section" class="content-section">
+            <div class="scenic-slider-container-wrapper">
+                <h2>Визначні Місця</h2>
+                <p class="gallery-intro">Відкрийте для себе захоплюючі куточки планети, кожен зі своєю унікальною історією.</p>
+                <div class="scenic-slider-outer-container">
+                  <div id="scenic-slide-element">
+                    <div class="scenic-item" style="background-image: url(https://images.unsplash.com/photo-1506905925346-21bda4d32df4?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzkwMDB8&ixlib=rb-4.0.3&q=85&w=1800);">
+                      <div class="content">
+                        <div class="name">Альпійські Вершини</div>
+                        <div class="des">Величні гірські хребти, вкриті снігом, що сягають небес. Незабутні краєвиди та свіже гірське повітря.</div>
+                         <button class="scenic-btn">Дізнатись більше</button>
+                      </div>
+                    </div>
+                    <div class="scenic-item" style="background-image: url(https://images.unsplash.com/photo-1470058869958-2a77ade41c02?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);">
+                      <div class="content">
+                        <div class="name">Тропічний Рай</div>
+                        <div class="des">Білосніжні пляжі, бірюзова вода та пальми, що схиляються над океаном. Ідеальне місце для відпочинку та релаксації.</div>
+                         <button class="scenic-btn">Дізнатись більше</button>
+                      </div>
+                    </div>
+                    <div class="scenic-item" style="background-image: url(https://images.unsplash.com/photo-1448375240586-882707db888b?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzkwMDJ8&ixlib=rb-4.0.3&q=85&w=1800);">
+                      <div class="content">
+                        <div class="name">Зачарований Ліс</div>
+                        <div class="des">Тисячолітні дерева, вкриті мохом, таємничі стежки та спів птахів створюють атмосферу справжньої казки.</div>
+                        <button class="scenic-btn">Дізнатись більше</button>
+                      </div>
+                    </div>
+                    <div class="scenic-item" style="background-image: url(https://images.unsplash.com/photo-1549633759-5e6e8b0ed2ab?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);">
+                      <div class="content">
+                        <div class="name">Північне Сяйво</div>
+                        <div class="des">Магічний танець світла в нічному небі. Незабутнє природне явище, що зачаровує своєю неземною красою.</div>
+                        <button class="scenic-btn">Дізнатись більше</button>
+                      </div>
+                    </div>
+                    <div class="scenic-item" style="background-image: url(https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzkwMDR8&ixlib=rb-4.0.3&q=85&w=1800);">
+                      <div class="content">
+                        <div class="name">Безкрайня Пустеля</div>
+                        <div class="des">Золоті піщані дюни, що простягаються до горизонту, створюючи унікальні та вражаючі марсіанські пейзажі.</div>
+                         <button class="scenic-btn">Дізнатись більше</button>
+                      </div>
+                    </div>
+                    <div class="scenic-item" style="background-image: url(https://images.unsplash.com/photo-1433086966358-54859d0ed716?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTk2NzkwMDV8&ixlib=rb-4.0.3&q=85&w=1800);">
+                      <div class="content">
+                        <div class="name">Грізний Водоспад</div>
+                        <div class="des">Потужні потоки води, що з гуркотом падають зі скель, демонструючи неймовірну силу та красу дикої природи.</div>
+                       <button class="scenic-btn">Дізнатись більше</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="scenic-buttons">
+                    <button id="scenic-prev-btn"><i class="fa-solid fa-angle-left"></i></button>
+                    <button id="scenic-next-btn"><i class="fa-solid fa-angle-right"></i></button>
+                  </div>
                 </div>
             </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Product 1 -->
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80" alt="Premium Watch" class="w-full h-64 object-cover">
-                        <div class="absolute top-2 right-2 bg-teal-600 text-white text-xs font-bold px-2 py-1 rounded-full">NEW</div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-1">Luxe Chronograph Watch</h3>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="text-gray-600 text-sm ml-2">(42 reviews)</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-3">Premium stainless steel watch with leather strap</p>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-gray-800">$249.99</span>
-                            <button class="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700 transition text-sm">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 2 -->
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Wireless Headphones" class="w-full h-64 object-cover">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-1">Noise-Canceling Headphones</h3>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <span class="text-gray-600 text-sm ml-2">(36 reviews)</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-3">Premium wireless headphones with 30hr battery</p>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-gray-800">$179.99</span>
-                            <button class="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700 transition text-sm">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 3 -->
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative overflow-hidden">
-                        <img src="https://woosir.com/cdn/shop/collections/0e281f39108b9e3e4624f8b4e8681b5c.jpg?v=1691396711" alt="Leather Bag" class="w-full h-64 object-cover">
-                        <div class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">SALE</div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-1">Genuine Leather Tote</h3>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span class="text-gray-600 text-sm ml-2">(58 reviews)</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-3">Handcrafted full-grain leather tote bag</p>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="font-bold text-gray-800">$129.99</span>
-                                <span class="text-sm text-gray-500 line-through ml-2">$159.99</span>
-                            </div>
-                            <button class="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700 transition text-sm">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 4 -->
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Ceramic Mug" class="w-full h-64 object-cover">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-1">Artisan Ceramic Mug Set</h3>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="text-gray-600 text-sm ml-2">(27 reviews)</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-3">Set of 4 handcrafted ceramic mugs</p>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-gray-800">$49.99</span>
-                            <button class="bg-teal-600 text-white px-3 py-1 rounded hover:bg-teal-700 transition text-sm">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <button class="border-2 border-teal-600 text-teal-600 px-8 py-3 rounded-md hover:bg-teal-600 hover:text-white transition text-lg font-medium">View All Products</button>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col lg:flex-row items-center">
-                <div class="lg:w-1/2 mb-8 lg:mb-0 lg:pr-12">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Our Team" class="rounded-lg shadow-lg w-full">
-                </div>
-                <div class="lg:w-1/2">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Story</h2>
-                    <p class="text-gray-600 mb-6">Founded in 2015, Luxe Haven began as a small boutique with a passion for quality craftsmanship and timeless design. What started as a single storefront has grown into a beloved online destination for those who appreciate the finer things in life.</p>
-                    
-                    <div class="mb-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Our Mission</h3>
-                        <p class="text-gray-600">To curate a collection of premium products that combine exceptional quality, thoughtful design, and sustainable practices, making luxury accessible to all.</p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Our Values</h3>
-                        <ul class="space-y-2">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-teal-600 mt-1 mr-2"></i>
-                                <span class="text-gray-600">Quality craftsmanship above all else</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-teal-600 mt-1 mr-2"></i>
-                                <span class="text-gray-600">Ethical and sustainable sourcing</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-teal-600 mt-1 mr-2"></i>
-                                <span class="text-gray-600">Exceptional customer service</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-teal-600 mt-1 mr-2"></i>
-                                <span class="text-gray-600">Timeless design over trends</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <button class="bg-teal-600 text-white px-6 py-2 rounded-md hover:bg-teal-700 transition">Learn More</button>
-                </div>
+        <section id="gallery" class="gallery-section">
+                <h2>3D Галерея</h2>
+                <p class="gallery-intro">Пориньте у світ неймовірних пейзажів. Наведіть курсор на зображення, щоб побачити його детальніше, або натисніть (чи сфокусуйтесь за допомогою клавіатури) для збільшення.</p>
+            <div class="wrapper">
+              <div class="items">
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1468221296755-1c53a9dbcd54?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ0MTZ8&ixlib=rb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1455577380025-4321f1e1dca7?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQzNzh8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1511066597399-ca360b364224?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ0MTZ8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1626981892174-a793b72d06a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ0MTZ8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1480480565647-1c4385c7c0bf?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ0OTJ8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1503756234508-e32369269deb?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ5Nzh8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1414609245224-afa02bfb3fda?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ3OTl8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1547036967-23d11aacaee0?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ4NzB8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1504803900752-c2051699d0e8?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ5MjB8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1510797215324-95aa89f43c33?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ5MjB8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1420593248178-d88870618ca0?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ5NTB8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1529419412599-7bb870e11810?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ5Nzh8&ixlibrb-4.0.3&q=85&width=500)"></div>
+                <div class="item" tabindex="0" style="background-image: url(https://images.unsplash.com/photo-1420745981456-b95fe23f5753?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MTkxODQ4NzB8&ixlibrb-4.0.3&q=85&width=500)"></div>
+              </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">What Our Customers Say</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Don't just take our word for it - hear from our satisfied customers</p>
+        <section id="contact" class="content-section">
+            <div class="container">
+                <h2>Зв'яжіться з нами</h2>
+                <p>Маєте запитання, цікаві пропозиції або бажаєте поділитися власними фотографіями природи? Ми завжди раді спілкуванню! Напишіть нам на адресу: <a href="mailto:contact@natureworlds.gallery">m.tolstolustkyy2027@pu.org.ua</a>.</p>
             </div>
-            
-            <div class="relative max-w-5xl mx-auto">
-                <div class="testimonial-carousel overflow-hidden">
-                    <div class="flex transition-transform duration-300 ease-in-out" id="testimonial-slides">
-                        <!-- Testimonial 1 -->
-                        <div class="testimonial-card min-w-full px-4 active">
-                            <div class="bg-gray-50 p-8 rounded-lg shadow-sm">
-                                <div class="flex items-center mb-6">
-                                    <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson" class="w-16 h-16 rounded-full object-cover mr-4">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-800">Sarah Johnson</h4>
-                                        <div class="flex text-yellow-400">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="text-gray-600 italic">"I've been shopping with Luxe Haven for years and they never disappoint. The quality of their products is unmatched and their customer service is exceptional. My leather tote has held up beautifully for over two years of daily use!"</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Testimonial 2 -->
-                        <div class="testimonial-card min-w-full px-4">
-                            <div class="bg-gray-50 p-8 rounded-lg shadow-sm">
-                                <div class="flex items-center mb-6">
-                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="w-16 h-16 rounded-full object-cover mr-4">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-800">Michael Chen</h4>
-                                        <div class="flex text-yellow-400">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="text-gray-600 italic">"The noise-canceling headphones are worth every penny. As someone who travels frequently for work, these have been a game-changer. The battery life is impressive and the sound quality is crystal clear. Luxe Haven's packaging was also very elegant."</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Testimonial 3 -->
-                        <div class="testimonial-card min-w-full px-4">
-                            <div class="bg-gray-50 p-8 rounded-lg shadow-sm">
-                                <div class="flex items-center mb-6">
-                                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emily Rodriguez" class="w-16 h-16 rounded-full object-cover mr-4">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-800">Emily Rodriguez</h4>
-                                        <div class="flex text-yellow-400">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="text-gray-600 italic">"I purchased the ceramic mug set as a housewarming gift and my friend absolutely loved it! The craftsmanship is beautiful and each mug has its own unique character. Shipping was fast and the mugs arrived perfectly packaged with no damage."</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="flex justify-center mt-8 space-x-2">
-                    <button class="testimonial-dot w-3 h-3 rounded-full bg-teal-600" data-index="0"></button>
-                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300" data-index="1"></button>
-                    <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300" data-index="2"></button>
-                </div>
-                
-                <button id="testimonial-prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md text-teal-600 hover:bg-teal-600 hover:text-white transition">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button id="testimonial-next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md text-teal-600 hover:bg-teal-600 hover:text-white transition">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- FAQ Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Frequently Asked Questions</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Find answers to common questions about our products and services</p>
-            </div>
-            
-            <div class="space-y-4">
-                <!-- FAQ Item 1 -->
-                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
-                        <span class="font-medium text-gray-800">What is your return policy?</span>
-                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
-                    </button>
-                    <div class="accordion-content">
-                        <div class="p-4 pt-0 text-gray-600">
-                            <p>We offer a 30-day return policy for most items. Items must be unused, in their original packaging, and with all tags attached. Some exclusions apply for final sale items. To initiate a return, please contact our customer service team with your order number.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 2 -->
-                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
-                        <span class="font-medium text-gray-800">How long does shipping take?</span>
-                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
-                    </button>
-                    <div class="accordion-content">
-                        <div class="p-4 pt-0 text-gray-600">
-                            <p>We process orders within 1-2 business days. Standard shipping typically takes 3-5 business days within the continental US. Expedited shipping options are available at checkout for faster delivery. International shipping times vary by destination.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 3 -->
-                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
-                        <span class="font-medium text-gray-800">Do you offer international shipping?</span>
-                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
-                    </button>
-                    <div class="accordion-content">
-                        <div class="p-4 pt-0 text-gray-600">
-                            <p>Yes, we ship to most countries worldwide. International shipping rates and delivery times vary depending on the destination. Please note that customers are responsible for any customs duties, taxes, or fees that may apply in their country.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 4 -->
-                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
-                        <span class="font-medium text-gray-800">What payment methods do you accept?</span>
-                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
-                    </button>
-                    <div class="accordion-content">
-                        <div class="p-4 pt-0 text-gray-600">
-                            <p>We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple Pay, and Google Pay. All transactions are securely processed through our encrypted payment gateway.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- FAQ Item 5 -->
-                <div class="accordion bg-white rounded-lg shadow-sm overflow-hidden">
-                    <button class="accordion-button w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition">
-                        <span class="font-medium text-gray-800">How can I track my order?</span>
-                        <i class="accordion-icon fas fa-chevron-down text-teal-600 transition-transform"></i>
-                    </button>
-                    <div class="accordion-content">
-                        <div class="p-4 pt-0 text-gray-600">
-                            <p>Once your order has shipped, you'll receive a confirmation email with tracking information. You can also track your order by logging into your account on our website. If you're having trouble tracking your package, our customer service team is happy to assist.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-8">
-                <p class="text-gray-600">Still have questions? <a href="#contact" class="text-teal-600 hover:underline">Contact us</a> and we'll be happy to help!</p>
+    <footer>
+        <div class="footer-carousel-wrapper">
+            <div class="footer-carousel">
+                <div class="footer-item"><img src="https://flagcdn.com/h60/ua.png" alt="Прапор України"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/pl.png" alt="Прапор Польщі"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/de.png" alt="Прапор Німеччини"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/fr.png" alt="Прапор Франції"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/it.png" alt="Прапор Італії"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/es.png" alt="Прапор Іспанії"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/gb.png" alt="Прапор Великої Британії"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/jp.png" alt="Прапор Японії"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/kr.png" alt="Прапор Південної Кореї"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/us.png" alt="Прапор США"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/ca.png" alt="Прапор Канади"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/se.png" alt="Прапор Швеції"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/ua.png" alt="Прапор України"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/pl.png" alt="Прапор Польщі"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/de.png" alt="Прапор Німеччини"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/fr.png" alt="Прапор Франції"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/it.png" alt="Прапор Італії"></div>
+                <div class="footer-item"><img src="https://flagcdn.com/h60/es.png" alt="Прапор Іспанії"></div>
             </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Get In Touch</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">We'd love to hear from you! Send us a message and we'll respond as soon as possible.</p>
-            </div>
-            
-            <div class="flex flex-col lg:flex-row gap-12 max-w-6xl mx-auto">
-                <div class="lg:w-1/2">
-                    <form id="contact-form" class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500" required>
-                            <p class="mt-1 text-sm text-red-600 hidden" id="name-error">Please enter your name</p>
-                        </div>
-                        
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500" required>
-                            <p class="mt-1 text-sm text-red-600 hidden" id="email-error">Please enter a valid email address</p>
-                        </div>
-                        
-                        <div>
-                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                            <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500" required>
-                            <p class="mt-1 text-sm text-red-600 hidden" id="subject-error">Please enter a subject</p>
-                        </div>
-                        
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500" required></textarea>
-                            <p class="mt-1 text-sm text-red-600 hidden" id="message-error">Please enter your message</p>
-                        </div>
-                        
-                        <button type="submit" class="bg-teal-600 text-white px-6 py-3 rounded-md hover:bg-teal-700 transition w-full">Send Message</button>
-                    </form>
-                </div>
-                
-                <div class="lg:w-1/2">
-                    <div class="bg-gray-50 p-8 rounded-lg h-full">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-6">Contact Information</h3>
-                        
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="bg-teal-100 p-3 rounded-full mr-4">
-                                    <i class="fas fa-map-marker-alt text-teal-600"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-gray-800 mb-1">Our Location</h4>
-                                    <p class="text-gray-600">123 Luxury Avenue, Suite 100<br>Beverly Hills, CA 90210</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start">
-                                <div class="bg-teal-100 p-3 rounded-full mr-4">
-                                    <i class="fas fa-phone-alt text-teal-600"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-gray-800 mb-1">Phone Number</h4>
-                                    <p class="text-gray-600">+1 (310) 555-1234<br>Mon-Fri: 9am-6pm PST</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start">
-                                <div class="bg-teal-100 p-3 rounded-full mr-4">
-                                    <i class="fas fa-envelope text-teal-600"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-gray-800 mb-1">Email Address</h4>
-                                    <p class="text-gray-600">hello@luxehaven.com<br>We typically respond within 24 hours</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-8">
-                            <h4 class="font-medium text-gray-800 mb-4">Follow Us</h4>
-                            <div class="flex space-x-4">
-                                <a href="#" class="bg-gray-200 p-3 rounded-full text-gray-700 hover:bg-teal-600 hover:text-white transition">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="#" class="bg-gray-200 p-3 rounded-full text-gray-700 hover:bg-teal-600 hover:text-white transition">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#" class="bg-gray-200 p-3 rounded-full text-gray-700 hover:bg-teal-600 hover:text-white transition">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="#" class="bg-gray-200 p-3 rounded-full text-gray-700 hover:bg-teal-600 hover:text-white transition">
-                                    <i class="fab fa-pinterest-p"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="py-12 bg-teal-600 text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-2xl font-bold mb-4">Join Our Newsletter</h2>
-            <p class="max-w-2xl mx-auto mb-6">Subscribe to receive updates on new arrivals, special offers, and exclusive deals.</p>
-            
-            <form class="max-w-md mx-auto flex">
-                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-md focus:outline-none text-gray-800">
-                <button type="submit" class="bg-teal-800 px-6 py-3 rounded-r-md hover:bg-teal-900 transition">Subscribe</button>
-            </form>
-            
-            <p class="mt-4 text-sm opacity-80">We respect your privacy. Unsubscribe at any time.</p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white pt-12 pb-6">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Luxe Haven</h3>
-                    <p class="text-gray-400 mb-4">Your destination for premium quality products that elevate everyday life.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition">
-                            <i class="fab fa-pinterest-p"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Shop</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">New Arrivals</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Best Sellers</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Sale Items</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Gift Cards</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Customer Service</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQs</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Shipping & Returns</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Size Guide</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">About</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Our Story</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Sustainability</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 Luxe Haven. All rights reserved.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white transition text-sm">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-white transition text-sm">Terms of Service</a>
-                    <a href="#" class="text-gray-400 hover:text-white transition text-sm">Cookie Policy</a>
-                </div>
-            </div>
-        </div>
+        <p>© <span id="currentYear"></span> Світи Природи. Усі права захищено. Створено з любов'ю до прекрасного.</p>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-            const icon = mobileMenuButton.querySelector('i');
-            if (mobileMenu.classList.contains('open')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('a.nav-link[href^="#"]');
+            const sectionsForScrollSpy = document.querySelectorAll("header[id], section[id]");
+
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        setTimeout(() => {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }, 0);
+
+                        navLinks.forEach(link => link.classList.remove('active-link'));
+                        this.classList.add('active-link');
+                    }
+                });
+            });
+
+            const scrollSpy = () => {
+                let currentSectionId = "";
+                const scrollPosition = window.pageYOffset;
+                const windowHeight = window.innerHeight;
+
+                sectionsForScrollSpy.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+
+                    if ( (scrollPosition >= sectionTop - windowHeight * 0.4 && scrollPosition < sectionTop + sectionHeight - windowHeight * 0.6) ||
+                         (scrollPosition + windowHeight > sectionTop && scrollPosition < sectionTop + sectionHeight && sectionHeight > windowHeight * 0.7) ) {
+                        currentSectionId = section.getAttribute("id");
+                    }
+                });
+
+                if (scrollPosition < sectionsForScrollSpy[0].offsetHeight * 0.6) {
+                     currentSectionId = sectionsForScrollSpy[0].getAttribute("id");
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove("active-link");
+                    if (link.getAttribute("href").substring(1) === currentSectionId) {
+                        link.classList.add("active-link");
+                    }
+                });
+            };
+
+            window.addEventListener("scroll", scrollSpy);
+            scrollSpy();
+        });
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        const scenicNextButton = document.getElementById('scenic-next-btn');
+        const scenicPrevButton = document.getElementById('scenic-prev-btn');
+        const scenicSlideElement = document.getElementById('scenic-slide-element');
+
+        if (scenicNextButton && scenicPrevButton && scenicSlideElement) {
+            scenicNextButton.onclick = function(){
+                let scenicItemsList = scenicSlideElement.querySelectorAll('.scenic-item');
+                if (scenicItemsList.length > 0) {
+                    scenicSlideElement.appendChild(scenicItemsList[0]);
+                }
             }
-        });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('open');
-                mobileMenuButton.querySelector('i').classList.remove('fa-times');
-                mobileMenuButton.querySelector('i').classList.add('fa-bars');
-            });
-        });
-        
-        // FAQ Accordion
-        document.querySelectorAll('.accordion-button').forEach(button => {
-            button.addEventListener('click', () => {
-                const accordion = button.closest('.accordion');
-                accordion.classList.toggle('active');
-            });
-        });
-        
-        // Testimonial Carousel
-        let currentTestimonial = 0;
-        const testimonials = document.querySelectorAll('.testimonial-card');
-        const dots = document.querySelectorAll('.testimonial-dot');
-        const slidesContainer = document.getElementById('testimonial-slides');
-        
-        function showTestimonial(index) {
-            testimonials.forEach((testimonial, i) => {
-                if (i === index) {
-                    testimonial.classList.add('active');
-                } else {
-                    testimonial.classList.remove('active');
+
+            scenicPrevButton.onclick = function(){
+                let scenicItemsList = scenicSlideElement.querySelectorAll('.scenic-item');
+                if (scenicItemsList.length > 0) {
+                    scenicSlideElement.prepend(scenicItemsList[scenicItemsList.length - 1]);
                 }
-            });
-            
-            dots.forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.add('bg-teal-600');
-                    dot.classList.remove('bg-gray-300');
-                } else {
-                    dot.classList.remove('bg-teal-600');
-                    dot.classList.add('bg-gray-300');
-                }
-            });
-            
-            slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-            currentTestimonial = index;
+            }
+        } else {
+            console.warn("Елементи слайдера краєвидів не знайдено. Перевірте ID.");
         }
-        
-        document.getElementById('testimonial-next').addEventListener('click', () => {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        });
-        
-        document.getElementById('testimonial-prev').addEventListener('click', () => {
-            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        });
-        
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const index = parseInt(dot.getAttribute('data-index'));
-                showTestimonial(index);
-            });
-        });
-        
-        // Auto-rotate testimonials
-        setInterval(() => {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        }, 5000);
-        
-        // Form Validation
-        const contactForm = document.getElementById('contact-form');
-        
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let isValid = true;
-            
-            // Validate name
-            const name = document.getElementById('name');
-            const nameError = document.getElementById('name-error');
-            if (name.value.trim() === '') {
-                nameError.classList.remove('hidden');
-                isValid = false;
-            } else {
-                nameError.classList.add('hidden');
-            }
-            
-            // Validate email
-            const email = document.getElementById('email');
-            const emailError = document.getElementById('email-error');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email.value)) {
-                emailError.classList.remove('hidden');
-                isValid = false;
-            } else {
-                emailError.classList.add('hidden');
-            }
-            
-            // Validate subject
-            const subject = document.getElementById('subject');
-            const subjectError = document.getElementById('subject-error');
-            if (subject.value.trim() === '') {
-                subjectError.classList.remove('hidden');
-                isValid = false;
-            } else {
-                subjectError.classList.add('hidden');
-            }
-            
-            // Validate message
-            const message = document.getElementById('message');
-            const messageError = document.getElementById('message-error');
-            if (message.value.trim() === '') {
-                messageError.classList.remove('hidden');
-                isValid = false;
-            } else {
-                messageError.classList.add('hidden');
-            }
-            
-            if (isValid) {
-                // In a real application, you would submit the form here
-                alert('Thank you for your message! We will get back to you soon.');
-                contactForm.reset();
-            }
-        });
-        
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
     </script>
 </body>
 </html>
